@@ -1,4 +1,4 @@
-# Triton Setup
+# Triton PyTorch
  
 
 ## 1. Converting Model to Torchscript (By Tracing)
@@ -77,5 +77,7 @@ When the triton server is successfully served, you should see the following:
 
 ## Inference
 
-A skeleton inference code can be found in `infer.ipynb`. Code is adapted from [Chronicles of AI](https://chroniclesofai.com/mlops-chapter-8-model-server-with-nvidia-triton-local-part-1-b/).
+A skeleton inference code can be found in `infer.ipynb`. Code is adapted from [Chronicles of AI](https://chroniclesofai.com/mlops-chapter-8-model-server-with-nvidia-triton-local-part-1-b/). 
+
+Within the inference code, again the data type needs to be specified within the `httpclient.InferInput()` function for each input. Refer again to [Triton's Server Model Configuration Documentation](https://github.com/triton-inference-server/server/blob/main/docs/model_configuration.md#datatypes), but use the API column as the datatype instead. 
 
