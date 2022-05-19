@@ -1,4 +1,6 @@
-# Triton PyTorch
+# Triton PyTorch Guide
+
+This repository documents the steps needed to prepare a PyTorch model for inference with Triton. 
  
 
 ## 1. Converting Model to Torchscript (By Tracing)
@@ -11,7 +13,7 @@ Notes:
     - Scripting would not be necessary if the model always go through a single logic flow only when deployed.
 
 
-## 2. Configure Triton Repository
+## 2. Configuring Triton Repository
 With reference to [Triton's Inference Server Repository](https://github.com/triton-inference-server/server), files need to be organised in the following layout:
 
 ```
@@ -51,13 +53,14 @@ Note: `.pt` file MUST be renamed as `model.pt`
 - `data_type`: For each input and output, the `data_type` needs to specified. The valid `data_type` and their PyTorch equivalent can be found in [Triton's Server Model Configuration Documentation](https://github.com/triton-inference-server/server/blob/main/docs/model_configuration.md#datatypes)
 - `dims`: Specify the dimensions of a single input example. In cases where the dimension varies (e.g. in the case of width and height of images), `-1` will be listed for those dimension (Example shown in `Triton\models\bert\config.pbtxt`, where texts have varying sequence length)
 
-The example in this repository describes the very basic Triton repository for PyTorch. All other specifications and configurations of `config.pbtxt` (e.g. `version_policy`, `max_batch_size` etc) can be found in the [Documentation](https://github.com/triton-inference-server/server/blob/main/docs/model_configuration.md)
+The example in this repository describes the very basic Triton repository for PyTorch. All other specifications and configurations of `config.pbtxt` (e.g. `version_policy`, `max_batch_size` etc) can be found in the [documentation](https://github.com/triton-inference-server/server/blob/main/docs/model_configuration.md)
 
 
-## Serving Triton Server
+## 3. Serving Triton Server
+Image needs to be built from Dockerfile first if running by `docker run`, else the base image will be pulled from Docker Hub and be used instead. This is not necessary if `docker-compose` is used since `docker-compose.yml` specifies the build path. 
 
 ### By Docker Run
-Execute the following command to run tritonserver as a standalone service. In the following example, only 1 GPU is used, and version `22.02-py3` of `tritonserver` is used.
+Execute the following command to run tritonserver as a standalone service. In the following example, only 1 GPU is used, and version `22.02-py3` of `tritonserver` is used. 
 - `docker run --gpus=1 --rm -p8000:8000 -p8001:8001 -p8002:8002 -v$(pwd)/Triton/models:/models nvcr.io/nvidia/tritonserver:22.02-py3 tritonserver --model-repository=/models`
 
 ### By Docker-Compose
@@ -75,7 +78,7 @@ When the triton server is successfully served, you should see the following:
 
 ```
 
-## Inference
+## 4. Inference
 
 A skeleton inference code can be found in `infer.ipynb`. Code is adapted from [Chronicles of AI](https://chroniclesofai.com/mlops-chapter-8-model-server-with-nvidia-triton-local-part-1-b/). 
 
