@@ -53,7 +53,7 @@ Note: `.pt` file MUST be renamed as `model.pt`
 - `data_type`: For each input and output, the `data_type` needs to specified. The valid `data_type` and their PyTorch equivalent can be found in [Triton's Server Model Configuration Documentation](https://github.com/triton-inference-server/server/blob/main/docs/model_configuration.md#datatypes)
 - `dims`: Specify the dimensions of a single input example. In cases where the dimension varies (e.g. in the case of width and height of images), `-1` will be listed for those dimension (Example shown in `Triton\models\bert\config.pbtxt`, where texts have varying sequence length)
 
-The example in this repository describes the very basic Triton repository for PyTorch. All other specifications and configurations of `config.pbtxt` (e.g. `version_policy`, `max_batch_size` etc) can be found in the [documentation](https://github.com/triton-inference-server/server/blob/main/docs/model_configuration.md)
+The example in this repository describes the very basic Triton repository for PyTorch. All other specifications and configurations of `config.pbtxt` (e.g. `version_policy`, `max_batch_size` etc) can be found in the [documentation](https://github.com/triton-inference-server/server/blob/main/docs/user_guide/model_configuration.md)
 
 
 ## 3. Serving Triton Server
